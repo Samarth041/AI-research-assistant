@@ -14,8 +14,16 @@ def save_note(title:str,content:str)->str:
 
 @mcp.tool()
 def list_notes()->list[str]:
-    """ List all saved notes"""
+    """List all saved note titles."""
     return list(_NOTES.keys())
+
+@mcp.tool()
+def delete_node(title:str)->str:
+    """Delete a saved note by its title"""
+    if title in _NOTES:
+        del _NOTES[title]
+        return f"Deleted node '{title}'"
+    return f"Note '{title}' does  not exists. "
 
 if __name__=="__main__":
     mcp.run(transport="stdio")
