@@ -15,7 +15,8 @@ class MCPClient:
 
         self.session=await self._stack.enter_async_context(ClientSession(stdio,write))
 
-        await self.session.initialize()
+        result=await self.session.initialize()
+        print(result.capabilities)
 
     async def close(self)->None:
         await self._stack.aclose()
