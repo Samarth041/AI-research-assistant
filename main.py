@@ -8,7 +8,15 @@ async def main():
     client=MCPClient(params)
 
     await client.connect()
-    print("Connected: ",client.session is not None)
+    
+    tools=await client.list_tools()
+    for tool in tools:
+        print("="*50)
+        print("name : ",tool.name)
+        print("Description", tool.description)
+        print("Input schema",tool.inputSchema)
+
+
     await client.close()
 
 if __name__=="__main__":

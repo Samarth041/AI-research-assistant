@@ -18,6 +18,10 @@ class MCPClient:
         result=await self.session.initialize()
         print(result.capabilities)
 
+    async def list_tools(self):
+        response=await self.session.list_tools()
+        return response.tools
+
     async def close(self)->None:
         await self._stack.aclose()
 
