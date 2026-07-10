@@ -1,6 +1,7 @@
 from contextlib import AsyncExitStack
 from mcp import ClientSession , StdioServerParameters
 from mcp.client.stdio import stdio_client
+from mcp_client.exceptions import ToolCallError
 
 class MCPClient:
     def __init__(self,server_params:StdioServerParameters):
@@ -24,6 +25,8 @@ class MCPClient:
 
     async def call_tool(self,name:str,arguments:dict):
         result=await self.session.call_tool(name,arguments)
+        if result.isError:
+            raise ToolCallError(f"{name} failed : {result.content}")
         return result
 
     async def read_resource(self,uri:str):

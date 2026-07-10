@@ -18,12 +18,12 @@ def list_notes()->list[str]:
     return list(_NOTES.keys())
 
 @mcp.tool()
-def delete_node(title:str)->str:
+def delete_note(title:str)->str:
     """Delete a saved note by its title"""
-    if title in _NOTES:
-        del _NOTES[title]
-        return f"Deleted node '{title}'"
-    return f"Note '{title}' does  not exists. "
+    if title not in _NOTES:
+        raise ValueError(f"Note '{title}' does not exist")
+    del _NOTES[title]
+    return f"Deleted note '{title}' "
 
 @mcp.resource("notes://{title}")
 def get_note(title:str)->str:
