@@ -16,6 +16,14 @@ async def main():
         print("Description", tool.description)
         print("Input schema",tool.inputSchema)
 
+    print("-"*50)
+    save_result=await client.call_tool("save_note",{"title":"test","content":"hello"})
+    print(save_result.content)
+
+
+    print("-"*50)
+    list_result=await client.call_tool("list_notes",{})
+    print(list_result)
 
     await client.close()
 
