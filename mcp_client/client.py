@@ -30,6 +30,10 @@ class MCPClient:
         result=await self.session.read_resource(uri)
         return result.contents
 
+    async def get_prompt(self,name:str,arguments:dict | None=None):
+        result=await self.session.get_prompt(name,arguments or {})
+        return result.messages
+
     async def close(self)->None:
         await self._stack.aclose()
 

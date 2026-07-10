@@ -30,5 +30,11 @@ def get_note(title:str)->str:
     """Read a single note's content by title"""
     return _NOTES.get(title,"")
 
+@mcp.prompt()
+def summarize_notes_prompt()->str:
+    """Prompt template asking the model to summarize all saved notes."""
+    titles=", ".join(_NOTES.keys()) or "(no notes yet)"
+    return f"Summarise the key themes across these research notes: {titles}"
+
 if __name__=="__main__":
     mcp.run(transport="stdio")

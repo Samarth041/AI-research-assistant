@@ -20,6 +20,36 @@ async def main():
     save_result=await client.call_tool("save_note",{"title":"test","content":"hello"})
     print(save_result.content)
 
+    #to see summarisation prompt
+    
+
+    await client.call_tool(
+    "save_note",
+        {
+            "title": "AI",
+            "content": "Artificial Intelligence"
+        }
+    )
+
+    await client.call_tool(
+        "save_note",
+        {
+            "title": "MCP",
+            "content": "Model Context Protocol"
+        }
+    )
+
+    await client.call_tool(
+        "save_note",
+        {
+            "title": "LangGraph",
+            "content": "Agent framework"
+        }
+    )
+
+    messages=await client.get_prompt("summarize_notes_prompt")
+    for message in messages:
+        print(message)
 
     print("-"*50)
     list_result=await client.call_tool("list_notes",{})
