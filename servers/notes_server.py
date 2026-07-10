@@ -25,5 +25,10 @@ def delete_node(title:str)->str:
         return f"Deleted node '{title}'"
     return f"Note '{title}' does  not exists. "
 
+@mcp.resource("notes://{title}")
+def get_note(title:str)->str:
+    """Read a single note's content by title"""
+    return _NOTES.get(title,"")
+
 if __name__=="__main__":
     mcp.run(transport="stdio")

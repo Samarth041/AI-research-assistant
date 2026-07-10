@@ -25,7 +25,19 @@ async def main():
     list_result=await client.call_tool("list_notes",{})
     print(list_result)
 
+    resources=await client.session.list_resources()
+
+    print("-"*50)
+    for resource in resources.resources:
+        print(resource.name)
+        print(resource.uri)
+
+    resource_result=await client.read_resource("notes://test")
+    print(resource_result)
+
     await client.close()
+
+    
 
 if __name__=="__main__":
     asyncio.run(main())

@@ -26,6 +26,10 @@ class MCPClient:
         result=await self.session.call_tool(name,arguments)
         return result
 
+    async def read_resource(self,uri:str):
+        result=await self.session.read_resource(uri)
+        return result.contents
+
     async def close(self)->None:
         await self._stack.aclose()
 
