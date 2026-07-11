@@ -8,72 +8,72 @@ async def main():
 
     client=MCPClient(params)
 
-    await client.connect()
-    
-    tools=await client.list_tools()
-    # for tool in tools:
-    #     print("="*50)
-    #     print("name : ",tool.name)
-    #     print("Description", tool.description)
-    #     print("Input schema",tool.inputSchema)
+    async with MCPClient(params) as client:
+        
+        tools=await client.list_tools()
+        # for tool in tools:
+        #     print("="*50)
+        #     print("name : ",tool.name)
+        #     print("Description", tool.description)
+        #     print("Input schema",tool.inputSchema)
 
-    #print("-"*50)
-    save_result=await client.call_tool("save_note",{"title":"test","content":"hello"})
-    #print(save_result.content)
+        #print("-"*50)
+        save_result=await client.call_tool("save_note",{"title":"test","content":"hello"})
+        #print(save_result.content)
 
-    #to see summarisation prompt
-    
+        #to see summarisation prompt
+        
 
-    await client.call_tool(
-    "save_note",
-        {
-            "title": "AI",
-            "content": "Artificial Intelligence"
-        }
-    )
-
-    await client.call_tool(
+        await client.call_tool(
         "save_note",
-        {
-            "title": "MCP",
-            "content": "Model Context Protocol"
-        }
-    )
+            {
+                "title": "AI",
+                "content": "Artificial Intelligence"
+            }
+        )
 
-    await client.call_tool(
-        "save_note",
-        {
-            "title": "LangGraph",
-            "content": "Agent framework"
-        }
-    )
+        await client.call_tool(
+            "save_note",
+            {
+                "title": "MCP",
+                "content": "Model Context Protocol"
+            }
+        )
 
-    messages=await client.get_prompt("summarize_notes_prompt")
-    # for message in messages:
-    #     print(message)
+        await client.call_tool(
+            "save_note",
+            {
+                "title": "LangGraph",
+                "content": "Agent framework"
+            }
+        )
 
-    #print("-"*50)
-    list_result=await client.call_tool("list_notes",{})
-    #print(list_result)
+        messages=await client.get_prompt("summarize_notes_prompt")
+        # for message in messages:
+        #     print(message)
 
-    resources=await client.session.list_resources()
+        #print("-"*50)
+        list_result=await client.call_tool("list_notes",{})
+        #print(list_result)
 
-    # print("-"*50)
-    # for resource in resources.resources:
-    #     print(resource.name)
-    #     print(resource.uri)
+        resources=await client.session.list_resources()
 
-    resource_result=await client.read_resource("notes://test")
-    #print(resource_result)
+        # print("-"*50)
+        # for resource in resources.resources:
+        #     print(resource.name)
+        #     print(resource.uri)
 
-    try:
-        await client.call_tool("delete_note",{"title":"abc"})
-    except ToolCallError as e:
-        print(e)
+        resource_result=await client.read_resource("notes://test")
+        #print(resource_result)
 
-    await client.close()
+        try:
+            await client.call_tool("delete_note",{"title":"abc"})
+        except ToolCallError as e:
+            print(e)
 
-    
+        
+
+        
 
 if __name__=="__main__":
     asyncio.run(main())
